@@ -1,0 +1,92 @@
+<div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="card card-container col-6">
+
+      <div class="mt-4 mb-4" *ngIf="!isLoggedIn">
+
+        <h2>Iniciar sesion</h2>
+        
+      </div>
+
+      <div class="mt-4 mb-4" *ngIf="isLoggedIn">
+
+        <h2>Bienvenido!</h2>
+
+      </div>
+
+     <!--  <img
+        id="profile-img"
+        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+        class="profile-img-card"
+        
+      /> -->
+
+      
+      <form
+        *ngIf="!isLoggedIn"
+        name="form"
+        (ngSubmit)="f.form.valid && onSubmit()"
+        #f="ngForm"
+        novalidate 
+      >
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          name="email"
+          [(ngModel)]="form.email"
+          required
+          email
+          #email="ngModel"
+        />
+        <div class="alert alert-danger mt-2 " *ngIf="f.submitted && email.invalid">
+          <div *ngIf="email.errors.required">El email es obligatorio</div>
+          <div *ngIf="email.errors.email"  >
+            Ingrese un email valido
+          </div>
+        </div>
+      </div>
+        <div class="form-group ">
+          <label for="password">Contraseña</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="form.password"
+            required
+            minlength="6"
+            #password="ngModel"
+          />
+          <div
+            class="alert alert-danger mt-2 col-12"
+            role="alert"
+            *ngIf="f.submitted && password.invalid">
+            <div *ngIf="password.errors.required" class="col-12">Contraseña obligatoria</div>
+            <div *ngIf="password.errors.minlength">
+              La contrasena debe tener un minimo de 6 caracteres.
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-6 mx-auto">
+          <button class="btn btn-primary btn-block">
+            Iniciar sesion
+          </button>
+        </div>
+        <div class="form-group ">
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="f.submitted && isLoginFailed"
+          >
+            Inicio de sesion fallido: {{ errorMessage }}
+          </div>
+        </div>
+      </form>
+  
+      <div class="alert alert-success" *ngIf="isLoggedIn">
+        Inicio sesion exitoso :) 
+      </div>
+    </div>
+  </div> 
+  </div>
